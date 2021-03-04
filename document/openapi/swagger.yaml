@@ -1,0 +1,194 @@
+swagger: "2.0"
+info:
+  title: ""
+  description: 买买买后端升级demo
+  contact:
+    name: linmadan
+    email: 772181827@qq.com
+    home: ""
+  version: 0.0.1
+consumes:
+- application/json
+- application/xml
+produces:
+- application/json
+- application/xml
+paths:
+  /demos:
+    get:
+      tags:
+      - demoAdmin
+      summary: 返回例子服务列表
+      description: 返回例子服务列表
+      operationId: demoAdmin#listDemo
+      parameters:
+      - name: offset
+        in: query
+        description: 查询偏离量
+        required: false
+        type: integer
+      - name: limit
+        in: query
+        description: 查询限制
+        required: false
+        type: integer
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/DemoAdminListDemoResponseBody'
+      schemes:
+      - http
+    post:
+      tags:
+      - demoAdmin
+      summary: 创建例子服务
+      description: 创建例子服务
+      operationId: demoAdmin#createDemo
+      parameters:
+      - name: CreateDemoRequestBody
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/DemoAdminCreateDemoRequestBody'
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/DemoAdminCreateDemoResponseBody'
+      schemes:
+      - http
+  /demos/{demoId}:
+    get:
+      tags:
+      - demoAdmin
+      summary: 返回例子服务
+      description: 返回例子服务
+      operationId: demoAdmin#getDemo
+      parameters:
+      - name: demoId
+        in: path
+        description: 例子id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/DemoAdminGetDemoResponseBody'
+      schemes:
+      - http
+    put:
+      tags:
+      - demoAdmin
+      summary: 更新例子服务
+      description: 更新例子服务
+      operationId: demoAdmin#updateDemo
+      parameters:
+      - name: demoId
+        in: path
+        description: 例子id
+        required: true
+        type: integer
+      - name: UpdateDemoRequestBody
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/DemoAdminUpdateDemoRequestBody'
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/DemoAdminUpdateDemoResponseBody'
+      schemes:
+      - http
+    delete:
+      tags:
+      - demoAdmin
+      summary: 移除例子服务
+      description: 移除例子服务
+      operationId: demoAdmin#removeDemo
+      parameters:
+      - name: demoId
+        in: path
+        description: 例子id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK response.
+          schema:
+            $ref: '#/definitions/DemoAdminRemoveDemoResponseBody'
+      schemes:
+      - http
+definitions:
+  DemoAdminCreateDemoRequestBody:
+    title: DemoAdminCreateDemoRequestBody
+    type: object
+    properties:
+      demoName:
+        type: string
+        description: 例子名称
+        required:
+        - demoName
+  DemoAdminCreateDemoResponseBody:
+    title: 'Mediatype identifier: DemoAdminCreateDemoResponseBody'
+    type: object
+    properties:
+      demo:
+        $ref: '#/definitions/demoResponseBody'
+  DemoAdminGetDemoResponseBody:
+    title: 'Mediatype identifier: DemoAdminGetDemoResponseBody'
+    type: object
+    properties:
+      demo:
+        $ref: '#/definitions/demoResponseBody'
+  DemoAdminListDemoResponseBody:
+    title: 'Mediatype identifier: DemoAdminListDemoResponseBody'
+    type: object
+    properties:
+      count:
+        type: integer
+        description: 匹配数目
+        required:
+        - count
+      demos:
+        type: array
+        items:
+          $ref: '#/definitions/demoResponseBody'
+        required:
+        - demos
+  DemoAdminRemoveDemoResponseBody:
+    title: 'Mediatype identifier: DemoAdminRemoveDemoResponseBody'
+    type: object
+    properties:
+      demo:
+        $ref: '#/definitions/demoResponseBody'
+  DemoAdminUpdateDemoRequestBody:
+    title: DemoAdminUpdateDemoRequestBody
+    type: object
+    properties:
+      demoName:
+        type: string
+        description: 例子名称
+  DemoAdminUpdateDemoResponseBody:
+    title: 'Mediatype identifier: DemoAdminUpdateDemoResponseBody'
+    type: object
+    properties:
+      demo:
+        $ref: '#/definitions/demoResponseBody'
+  demoResponseBody:
+    title: demoResponseBody
+    type: object
+    properties:
+      demoId:
+        type: integer
+        description: 例子id
+        required:
+        - demoId
+      demoName:
+        type: string
+        description: 例子名称
+        required:
+        - demoName
+    description: 例子
